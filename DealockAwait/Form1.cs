@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net.Http;
 
 namespace DealockAwait
 {
@@ -33,8 +26,13 @@ namespace DealockAwait
 
         private void DeadLock_Click(object sender, EventArgs e)
         {
-            var htmlString = GetStringAsync();
-            MessageBox.Show(htmlString.Result);
+            // The get accessor for this property ensures that 
+            // the asynchronous operation is complete before returning. 
+            // Once the result of the computation is available, it
+            // is stored and will be returned immediately on later 
+            // calls to Result.
+            var htmlString = GetStringAsync(); 
+            MessageBox.Show(htmlString.Result); // DEAD LOCK HERE!
         }
     }
 }
